@@ -1,0 +1,68 @@
+.speedContainer {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.speedWrapper {
+  display: inline-block;
+  overflow: hidden;
+  height: 3rem;
+  position: relative;
+  min-width: 4rem;
+  text-align: right;
+}
+
+.speedNumber {
+  display: block;
+  animation: slideUp 0.5s ease-out;
+  background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.speedUnit {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@media (max-width: 768px) {
+  .speedContainer {
+    font-size: 2rem;
+  }
+
+  .speedWrapper {
+    height: 2.5rem;
+    min-width: 3rem;
+  }
+
+  .speedUnit {
+    font-size: 2rem;
+  }
+
+  .speedNumber {
+    font-size: 2rem;
+  }
+}

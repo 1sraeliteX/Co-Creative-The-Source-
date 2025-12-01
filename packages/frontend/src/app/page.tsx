@@ -3,9 +3,15 @@
 import { useState, useEffect } from 'react';
 import styles from './page.module.css';
 import LoadingScreen from '../components/LoadingScreen';
+import EtherealShadow from '../components/EtherealShadow';
+import MobileMenu from '../components/MobileMenu';
+import CardStack from '../components/CardStack';
+import TestimonialSlider from '../components/TestimonialSlider';
+import SpeedCounter from '../components/SpeedCounter';
 
 export default function Home() {
   const [showContent, setShowContent] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -15,6 +21,18 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
   return (
     <>
       <LoadingScreen />
@@ -22,50 +40,61 @@ export default function Home() {
         className={styles.container} 
         style={{ opacity: showContent ? 1 : 0, transition: 'opacity 0.5s' }}
       >
+        {/* Mobile Menu */}
+        <MobileMenu 
+          isOpen={isMobileMenuOpen} 
+          onToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+        />
+
         {/* Navigation */}
         <nav className={styles.nav}>
         <div className={styles.navContent}>
-          <div className={styles.logo}>The Source HUB</div>
+          <div className={styles.logo}>
+            <img src="/logo2.png" alt="The Source HUB" className={styles.logoImage} />
+          </div>
           <div className={styles.navLinks}>
             <a href="#features">Features</a>
             <a href="#workspaces">Workspaces</a>
             <a href="#membership">Membership</a>
             <a href="#community">Community</a>
-            <button className={styles.ctaButton}>Get Started</button>
+            <a href="/booking">
+              <button className={styles.ctaButton}>Book a Space</button>
+            </a>
           </div>
           </div>
         </nav>
 
         {/* Hero Section */}
         <section className={styles.hero}>
-        <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>
-            Where African Innovators
-            <span className={styles.gradient}> Build Without Limits</span>
-          </h1>
-          <p className={styles.heroSubtitle}>
-            Reliable 24/7 power, high-speed internet, and collaborative workspace.
-            No more coding by candlelight or missing deadlines due to outages.
-          </p>
-          <div className={styles.heroButtons}>
-            <button className={styles.primaryButton}>Start Free Trial</button>
-            <button className={styles.secondaryButton}>Take a Tour</button>
-          </div>
-          <div className={styles.heroStats}>
-            <div className={styles.stat}>
-              <div className={styles.statNumber}>99.5%</div>
-              <div className={styles.statLabel}>Power Uptime</div>
+          <EtherealShadow>
+            <div className={styles.heroContent}>
+              <h1 className={styles.heroTitle}>
+                Where African Innovators
+                <span className={styles.gradient}> Build Without Limits</span>
+              </h1>
+              <p className={styles.heroSubtitle}>
+                Reliable 24/7 power, high-speed internet, and collaborative workspace.
+                No more coding by candlelight or missing deadlines due to outages.
+              </p>
+              <CardStack />
+              <div className={styles.heroStats}>
+                <div className={styles.stat}>
+                  <div className={styles.statNumber}>99.5%</div>
+                  <div className={styles.statLabel}>Power Uptime</div>
+                </div>
+                <div className={styles.stat}>
+                  <div className={styles.statNumber}>
+                    <SpeedCounter />
+                  </div>
+                  <div className={styles.statLabel}>Internet Speed</div>
+                </div>
+                <div className={styles.stat}>
+                  <div className={styles.statNumber}>24/7</div>
+                  <div className={styles.statLabel}>Access</div>
+                </div>
+              </div>
             </div>
-            <div className={styles.stat}>
-              <div className={styles.statNumber}>50+ Mbps</div>
-              <div className={styles.statLabel}>Internet Speed</div>
-            </div>
-            <div className={styles.stat}>
-              <div className={styles.statNumber}>24/7</div>
-              <div className={styles.statLabel}>Access</div>
-            </div>
-          </div>
-          </div>
+          </EtherealShadow>
         </section>
 
         {/* Features Grid */}
@@ -119,46 +148,54 @@ export default function Home() {
           </p>
         </div>
         <div className={styles.workspaceGrid}>
-          <div className={styles.workspaceCard}>
-            <div className={styles.workspaceImage}>
-              <div className={styles.workspacePlaceholder}>🖥️</div>
+          <a href="/workspaces/hot-desks" className={styles.workspaceLink}>
+            <div className={styles.workspaceCard}>
+              <div className={styles.workspaceImage}>
+                <img 
+                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" 
+                  alt="Hot Desks"
+                  className={styles.workspaceImg}
+                />
+              </div>
+              <div className={styles.workspaceContent}>
+                <h3>Hot Desks</h3>
+                <p>Flexible seating in collaborative spaces. Perfect for freelancers and remote workers.</p>
+                <div className={styles.workspacePrice}>From ₦1,500/hour</div>
+              </div>
             </div>
-            <div className={styles.workspaceContent}>
-              <h3>Hot Desks</h3>
-              <p>Flexible seating in collaborative spaces. Perfect for freelancers and remote workers.</p>
-              <div className={styles.workspacePrice}>From $5/hour</div>
+          </a>
+          <a href="/workspaces/meeting-rooms" className={styles.workspaceLink}>
+            <div className={styles.workspaceCard}>
+              <div className={styles.workspaceImage}>
+                <img 
+                  src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80" 
+                  alt="Meeting Rooms"
+                  className={styles.workspaceImg}
+                />
+              </div>
+              <div className={styles.workspaceContent}>
+                <h3>Meeting Rooms</h3>
+                <p>Professional spaces for 4-20 people with presentation equipment and whiteboards.</p>
+                <div className={styles.workspacePrice}>From ₦4,500/hour</div>
+              </div>
             </div>
-          </div>
-          <div className={styles.workspaceCard}>
-            <div className={styles.workspaceImage}>
-              <div className={styles.workspacePlaceholder}>👥</div>
+          </a>
+          <a href="/workspaces/recording-studios" className={styles.workspaceLink}>
+            <div className={styles.workspaceCard}>
+              <div className={styles.workspaceImage}>
+                <img 
+                  src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80" 
+                  alt="Recording Studios"
+                  className={styles.workspaceImg}
+                />
+              </div>
+              <div className={styles.workspaceContent}>
+                <h3>Recording Studios</h3>
+                <p>Soundproof studios with professional audio and video production equipment.</p>
+                <div className={styles.workspacePrice}>From ₦7,500/hour</div>
+              </div>
             </div>
-            <div className={styles.workspaceContent}>
-              <h3>Meeting Rooms</h3>
-              <p>Professional spaces for 4-20 people with presentation equipment and whiteboards.</p>
-              <div className={styles.workspacePrice}>From $15/hour</div>
-            </div>
-          </div>
-          <div className={styles.workspaceCard}>
-            <div className={styles.workspaceImage}>
-              <div className={styles.workspacePlaceholder}>🏢</div>
-            </div>
-            <div className={styles.workspaceContent}>
-              <h3>Private Offices</h3>
-              <p>Dedicated spaces for teams. Lockable, customizable, and always available.</p>
-              <div className={styles.workspacePrice}>From $200/month</div>
-            </div>
-          </div>
-          <div className={styles.workspaceCard}>
-            <div className={styles.workspaceImage}>
-              <div className={styles.workspacePlaceholder}>🎙️</div>
-            </div>
-            <div className={styles.workspaceContent}>
-              <h3>Recording Studios</h3>
-              <p>Soundproof studios with professional audio and video production equipment.</p>
-              <div className={styles.workspacePrice}>From $25/hour</div>
-            </div>
-          </div>
+          </a>
           </div>
         </section>
 
@@ -173,72 +210,92 @@ export default function Home() {
         <div className={styles.pricingGrid}>
           <div className={styles.pricingCard}>
             <div className={styles.pricingHeader}>
-              <h3>Trial</h3>
+              <h3>Newbie</h3>
               <div className={styles.price}>
-                <span className={styles.priceAmount}>$0</span>
-                <span className={styles.pricePeriod}>/7 days</span>
+                <span className={styles.priceAmount}>₦300</span>
+                <span className={styles.pricePeriod}>/hour</span>
               </div>
+              <div className={styles.priceNote}>Pay As You Go • No Commitment</div>
             </div>
             <ul className={styles.featureList}>
-              <li>✓ 4-hour workspace trial</li>
+              <li>✓ Pay only for hours used</li>
               <li>✓ High-speed internet</li>
-              <li>✓ 24/7 power access</li>
+              <li>✓ 24/7 power backup</li>
               <li>✓ Community events</li>
-              <li>✗ No booking priority</li>
+              <li>✗ No priority booking</li>
+              <li>✗ No monthly discounts</li>
             </ul>
-            <button className={styles.pricingButton}>Start Free Trial</button>
+            <a href="/booking">
+              <button className={styles.pricingButton}>Book a Space</button>
+            </a>
           </div>
           <div className={styles.pricingCard}>
             <div className={styles.pricingHeader}>
-              <h3>Basic</h3>
+              <h3>Code Ninja</h3>
               <div className={styles.price}>
-                <span className={styles.priceAmount}>$50</span>
+                <span className={styles.priceAmount}>₦9,900</span>
                 <span className={styles.pricePeriod}>/month</span>
+              </div>
+              <div className={styles.priceNote}>
+                <span className={styles.strikethrough}>₦12,000</span> Save ₦2,100 • ₦248/hr
               </div>
             </div>
             <ul className={styles.featureList}>
-              <li>✓ 40 hours workspace/month</li>
+              <li>✓ 40 hours/month (₦248/hr)</li>
               <li>✓ High-speed internet</li>
               <li>✓ 24/7 power & access</li>
               <li>✓ Workshop access</li>
               <li>✓ Community networking</li>
+              <li>✓ 17% cheaper than pay-as-you-go</li>
             </ul>
-            <button className={styles.pricingButton}>Get Started</button>
+            <a href="/booking">
+              <button className={styles.pricingButton}>Book a Space</button>
+            </a>
           </div>
           <div className={`${styles.pricingCard} ${styles.featured}`}>
-            <div className={styles.badge}>Most Popular</div>
+            <div className={styles.badge}>Best Value - Save 17%</div>
             <div className={styles.pricingHeader}>
-              <h3>Pro</h3>
+              <h3>Big Dev</h3>
               <div className={styles.price}>
-                <span className={styles.priceAmount}>$100</span>
+                <span className={styles.priceAmount}>₦24,900</span>
                 <span className={styles.pricePeriod}>/month</span>
+              </div>
+              <div className={styles.priceNote}>
+                <span className={styles.strikethrough}>₦30,000</span> Save ₦5,100 • ₦249/hr
               </div>
             </div>
             <ul className={styles.featureList}>
-              <li>✓ 100 hours workspace/month</li>
-              <li>✓ Priority booking</li>
-              <li>✓ Meeting room access</li>
-              <li>✓ Cloud computing credits</li>
-              <li>✓ Mentorship sessions</li>
+              <li>✓ 100 hours/month (₦249/hr)</li>
+              <li>✓ Priority booking guaranteed</li>
+              <li>✓ Meeting room access (4hrs free)</li>
+              <li>✓ ₦5,000 cloud credits</li>
+              <li>✓ 2 mentorship sessions/month</li>
+              <li>✓ Recording studio discount</li>
             </ul>
-            <button className={`${styles.pricingButton} ${styles.featuredButton}`}>Get Started</button>
+            <a href="/booking">
+              <button className={`${styles.pricingButton} ${styles.featuredButton}`}>Book a Space</button>
+            </a>
           </div>
           <div className={styles.pricingCard}>
             <div className={styles.pricingHeader}>
-              <h3>Enterprise</h3>
+              <h3>Tech Titan</h3>
               <div className={styles.price}>
-                <span className={styles.priceAmount}>$200</span>
+                <span className={styles.priceAmount}>₦49,900</span>
                 <span className={styles.pricePeriod}>/month</span>
               </div>
+              <div className={styles.priceNote}>Unlimited Access • Best for Teams</div>
             </div>
             <ul className={styles.featureList}>
-              <li>✓ Unlimited workspace access</li>
-              <li>✓ Private office option</li>
-              <li>✓ Dedicated support</li>
-              <li>✓ API access & tools</li>
-              <li>✓ Team collaboration</li>
+              <li>✓ Unlimited workspace hours</li>
+              <li>✓ Private office (8hrs/week)</li>
+              <li>✓ Dedicated support 24/7</li>
+              <li>✓ ₦15,000 cloud credits</li>
+              <li>✓ Unlimited mentorship</li>
+              <li>✓ Team collaboration tools</li>
             </ul>
-            <button className={styles.pricingButton}>Contact Sales</button>
+            <a href="/booking">
+              <button className={styles.pricingButton}>Book a Space</button>
+            </a>
           </div>
         </div>
         <div className={styles.scholarshipNote}>
@@ -283,10 +340,7 @@ export default function Home() {
         <div className={styles.ctaContent}>
           <h2>Ready to Build Without Limits?</h2>
           <p>Start your free 7-day trial. No credit card required.</p>
-          <div className={styles.ctaButtons}>
-            <button className={styles.primaryButton}>Start Free Trial</button>
-            <button className={styles.secondaryButton}>Schedule a Tour</button>
-          </div>
+          <TestimonialSlider />
           </div>
         </section>
 

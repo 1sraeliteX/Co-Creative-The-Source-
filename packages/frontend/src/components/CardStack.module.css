@@ -1,0 +1,161 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.stackWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  height: 480px;
+  perspective: 1000px;
+}
+
+.card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #1a1a1a;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+  transform-origin: center center;
+}
+
+.topCard {
+  z-index: 3;
+  cursor: pointer;
+}
+
+.topCard:hover {
+  transform: translateY(-5px) scale(1.02) !important;
+}
+
+.swipeLeft {
+  animation: swipeLeftAnimation 0.3s ease-out forwards;
+}
+
+.swipeRight {
+  animation: swipeRightAnimation 0.3s ease-out forwards;
+}
+
+@keyframes swipeLeftAnimation {
+  to {
+    transform: translateX(-150%) rotate(-15deg);
+    opacity: 0;
+  }
+}
+
+@keyframes swipeRightAnimation {
+  to {
+    transform: translateX(150%) rotate(15deg);
+    opacity: 0;
+  }
+}
+
+.cardImage {
+  width: 100%;
+  height: 65%;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.cardImage::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to top, rgba(255, 255, 255, 1), transparent);
+}
+
+.cardImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.9);
+}
+
+.cardContent {
+  padding: 2rem;
+  text-align: center;
+  background: white;
+  position: relative;
+}
+
+.cardContent::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: linear-gradient(to bottom, transparent, white);
+  pointer-events: none;
+}
+
+.cardContent h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #1a1a1a;
+}
+
+.cardContent p {
+  color: #666;
+  line-height: 1.6;
+}
+
+.instructions {
+  text-align: center;
+  color: var(--gray-light);
+  font-size: 0.95rem;
+  margin-top: 1rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.actionButton {
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.actionButton:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .stackWrapper {
+    max-width: 320px;
+    height: 450px;
+  }
+
+  .cardContent h3 {
+    font-size: 1.25rem;
+  }
+
+  .cardContent p {
+    font-size: 0.9rem;
+  }
+}

@@ -1,5 +1,12 @@
 import type { Metadata } from 'next';
+import { Bricolage_Grotesque } from 'next/font/google';
 import './globals.css';
+
+const bricolageGrotesque = Bricolage_Grotesque({
+  subsets: ['latin'],
+  variable: '--font-bricolage',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'The Source HUB - Creative-Tech Hub for African Innovators',
@@ -12,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={bricolageGrotesque.variable}>
       <body>{children}</body>
     </html>
   );

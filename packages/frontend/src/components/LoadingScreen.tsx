@@ -18,7 +18,9 @@ export default function LoadingScreen() {
 
   return (
     <div className={styles.loadingContainer}>
-      <div className={styles.logo}>The Source HUB</div>
+      <div className={styles.logoContainer}>
+        <img src="/logo1.png" alt="The Source HUB" className={styles.logo} />
+      </div>
       <div className={styles.spinner}></div>
       <div className={styles.loadingText}>Loading your creative space...</div>
       <div className={styles.progressBar}>

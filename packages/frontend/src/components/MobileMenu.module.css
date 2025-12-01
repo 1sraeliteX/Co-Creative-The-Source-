@@ -1,0 +1,112 @@
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 280px;
+  z-index: 1100;
+  pointer-events: none;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 280px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  pointer-events: auto;
+  z-index: 1100;
+}
+
+.toggleButton {
+  outline: none;
+  border: none;
+  user-select: none;
+  cursor: pointer;
+  position: fixed;
+  top: 0.75rem;
+  right: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: transparent;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+  pointer-events: auto;
+  color: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+}
+
+.toggleButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.list {
+  list-style: none;
+  padding: 25px;
+  margin: 0;
+  position: absolute;
+  top: 100px;
+  width: 230px;
+  right: 0;
+  pointer-events: auto;
+  z-index: 1150;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+  margin: 0 0 20px 0;
+  list-style: none;
+  cursor: pointer;
+}
+
+.listItem a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 500;
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 25px;
+  transition: background 0.2s ease;
+}
+
+.listItem a:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.ctaItem {
+  margin-top: 20px;
+  list-style: none;
+}
+
+.ctaButton {
+  width: 100%;
+  padding: 14px 24px;
+  background: white;
+  color: #667eea;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Show mobile menu on smaller screens */
+@media (max-width: 768px) {
+  .toggleButton {
+    display: flex;
+  }
+}
